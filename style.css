@@ -95,6 +95,8 @@ header{
     background: #FFF;
     backdrop-filter: blur(5.5px);
     border: none;
+    text-decoration: none;
+    color: #030303;
 }
 
 .button .button-2{
@@ -110,6 +112,8 @@ header{
     backdrop-filter: blur(5.5px);
     border: none;
     opacity: 0.5;
+    text-decoration: none;
+    color:#030303;
 }
 
 .profile{
@@ -189,7 +193,7 @@ flex: 1 0 0;
     margin: 0px;
 }
 
-.toggle{
+.toggle {
     display: flex;
     width: 210px;
     padding: 2px;
@@ -197,29 +201,45 @@ flex: 1 0 0;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.50);
     backdrop-filter: blur(20.5px);
+    cursor: pointer;
+    
+    /* Tambahan penting untuk efek slide */
+    position: relative; 
+    z-index: 1; /* Memastikan kotak slider ada di belakang teks */
 }
 
-.toggle .auto{
-    display: flex;
-    height: 48px;
-    padding: 8px 4px;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    flex: 1 0 0;
-    border-radius: 12px;
-}
-
-.toggle .manual{
-    display: flex;
-    height: 48px;
-    padding: 8px 4px;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    flex: 1 0 0;
-    border-radius: 12px;
+/* Ini adalah kotak putih yang akan bergeser */
+.toggle::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(50% - 2px); /* Lebarnya pas setengah container */
+    height: calc(100% - 4px);
     background: #FFF;
+    border-radius: 12px;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* Animasi slide mulus */
+    z-index: -1; /* Taruh di belakang teks */
+}
+
+/* Class ini yang akan menggeser kotak putih ke kanan */
+.toggle.is-manual::before {
+    transform: translateX(100%);
+}
+
+.toggle .auto,
+.toggle .manual {
+    display: flex;
+    height: 48px;
+    padding: 8px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    flex: 1 0 0;
+    border-radius: 12px;
+    /* Background dihapus karena sudah digantikan oleh ::before di atas */
+    background: transparent; 
+    transition: color 0.3s ease;
 }
 
 .wraper-2{
@@ -236,11 +256,11 @@ flex: 1 0 0;
 
 .bridge-gate{
     display: flex;
-height: 267px;
 flex-direction: column;
 align-items: flex-start;
 gap: 12px;
 flex: 1 0 0;
+align-self: stretch;
 }
 
 .bridge{
@@ -289,18 +309,6 @@ background: var(--gradient-2, linear-gradient(270deg, rgba(164, 199, 221, 0.50) 
     cursor: pointer;
 }
 
-.bridge .button .icon-2{
-    display: flex;
-    width: 46px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    align-self: stretch;
-    border-radius: 15px;
-    background: linear-gradient(321deg, #FFF -90.09%, #0088DE 190.09%);
-    opacity: 0;
-}
-
 .bridge .button p{
     color: #676767;
     margin: 0px;
@@ -311,6 +319,15 @@ background: var(--gradient-2, linear-gradient(270deg, rgba(164, 199, 221, 0.50) 
     gap: 10px;
     flex: 1 0 0;
     align-self: stretch;
+}
+
+.bridge .button.is-closed .icon {
+    order: 2; 
+    transform: scaleX(-1); 
+}   
+
+.bridge .button.is-closed p {
+    order: 1; 
 }
 
 .gate{
@@ -506,7 +523,7 @@ margin: 0px;
     height: 128px;
 }
 
-.traffic .button{
+.traffic .button {
     display: flex;
     width: 137px;
     height: 48px;
@@ -514,9 +531,34 @@ margin: 0px;
     align-items: center;
     border-radius: 16px;
     background: linear-gradient(90deg, rgba(164, 199, 221, 0.50) 0.01%, rgba(164, 199, 221, 0.00) 99.99%);
+    cursor: pointer;
+
+    /* Tambahan penting untuk efek slide */
+    position: relative;
+    z-index: 1;
 }
 
-.traffic .red{
+/* Ini adalah kotak biru/gradient yang akan bergeser */
+.traffic .button::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(50% - 2px);
+    height: calc(100% - 4px);
+    background: linear-gradient(321deg, #FFF -90.09%, #0088DE 190.09%);
+    border-radius: 15px;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    z-index: -1;
+}
+
+/* Class ini yang akan menggeser kotak ke kanan (ke arah Green) */
+.traffic .button.is-green::before {
+    transform: translateX(100%);
+}
+
+.traffic .red,
+.traffic .green {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -524,24 +566,15 @@ margin: 0px;
     flex: 1 0 0;
     align-self: stretch;
     border-radius: 15px;
-    background: linear-gradient(321deg, #FFF -90.09%, #0088DE 190.09%);
     font-size: 12px;
     font-weight: 300;
-    color: #fff;
-    cursor: pointer;
+    background: transparent; /* Hapus background lama */
+    transition: color 0.3s ease;
 }
 
-.traffic .green{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
-    font-size: 12px;
-    font-weight: 300;
-    color: #676767;
-    cursor: pointer;
+/* Class active sekarang cuma buat ganti warna teks biar kelihatan saat digeser */
+.traffic .active {
+    color: #fff;
 }
 
 .status-panel{
@@ -775,4 +808,41 @@ gap: 6px;
     font-weight: 400;
     line-height: 120%;
     letter-spacing: -0.48px;
+}
+
+.grid-stat .grid h2 span{
+    color: red;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.48px;
+}
+
+
+.si--double-arrow-right-line {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m13 16l4-4l-4-4m-6 8l4-4l-4-4'/%3E%3C/svg%3E");
+  background-color: #fff;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.mingcute--ship-fill {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z'/%3E%3Cpath fill='%23000' d='M14.211 17.776a4 4 0 0 1 3.364-.099l.214.1l2.658 1.328a1 1 0 0 1-.787 1.835l-.107-.046l-2.659-1.329a2 2 0 0 0-1.617-.076l-.172.076l-1.316.659a4 4 0 0 1-3.365.098l-.213-.098l-1.317-.659a2 2 0 0 0-1.617-.076l-.172.076l-2.658 1.33a1 1 0 0 1-.996-1.731l.102-.059l2.658-1.329a4 4 0 0 1 3.364-.099l.214.1l1.316.658a2 2 0 0 0 1.618.076l.171-.076zM13 2a1 1 0 0 1 1 1v1.32l3.329.554a2 2 0 0 1 1.67 1.973v3.432l2.06.686a1.25 1.25 0 0 1 .753 1.679l-2.169 5.06l-1.854-.928a4 4 0 0 0-3.578 0l-1.317.659a2 2 0 0 1-1.789 0l-1.316-.659a4 4 0 0 0-3.578 0l-1.27.636l-2.658-4.651a1.25 1.25 0 0 1 .69-1.806L5 10.279V6.847a2 2 0 0 1 1.67-1.973L10 4.32V3a1 1 0 0 1 1-1zm-1 4.014l-5 .833v2.766l4.367-1.456a2 2 0 0 1 1.265 0L17 9.613V6.847z'/%3E%3C/g%3E%3C/svg%3E");
+  background-color: #fff;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }

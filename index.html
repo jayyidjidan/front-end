@@ -16,8 +16,8 @@
                     <img src="Assets/logo 1.png" alt="">
 
                     <div class="button">
-                        <button class="button-1"><span class="si--dashboard-fill"></span>Home</button>
-                        <button class="button-2"><span class="material-symbols--history-rounded"></span>History</button>
+                        <a href="index.html" class="button-1"><span class="si--dashboard-fill"></span>Home</a>
+                        <a href="history.html" class="button-2"><span class="material-symbols--history-rounded"></span>History</a>
                     </div>
 
                     <div class="profile">
@@ -39,7 +39,7 @@
                         <h2>Control Panel</h2>
                         <div class="toggle">
                             <div class="auto">Auto</div>
-                            <div class="manual">Manual</div>
+                            <div class="manual active">Manual</div>
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@
                             <div class="bridge">
                                 <h3>Bridge</h3>
                                 <div class="button">
-                                    <div class="icon"></div>
+                                    <div class="icon"><span class="si--double-arrow-right-line"></span></div>
                                     <p>Open</p>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                             <h3>Traffic Light</h3>
                             <img src="Assets/red lights.png" alt="" srcset="">
                             <div class="button">
-                                <div class="red">Red</div>
+                                <div class="red active  ">Red</div>
                                 <div class="green">Green</div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="ship-stat">
                                 <div class="container">
-                                    <div class="iconframe"></div>
+                                    <div class="iconframe"><span class="mingcute--ship-fill"></span></div>
                                     <p>Ship Today</p>
                                 </div>
                                 <h3>20</h3>
@@ -120,7 +120,7 @@
             <div class="frame"></div>
             <p>Traffic Light</p>
         </div>
-        <h2>Red</h2>
+        <h2><span>Red</span></h2>
     </div>
 
     <div class="grid">
@@ -136,5 +136,7 @@
                 </div>
             </div>
         </div>
+
+        <script src="script.js"></script>
     </body>
     </html>
